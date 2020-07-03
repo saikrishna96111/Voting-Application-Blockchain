@@ -11,12 +11,16 @@ contract Election {
 
 	//store accounts that have voted.
 	mapping(address => bool) public voters;
-	
+
 	//store candidates
 	mapping(uint => Candidate) public candidates;
 
 	//store candidates count
 	uint public candidatesCount;
+
+	event votedEvent (
+		uint indexed _candidateId
+	);
 
 	// string public candidate;
 	constructor () public {
@@ -44,6 +48,7 @@ contract Election {
 		//increment the candidate vote count
 		candidates[_candidateId].voteCount ++;
 
-		
+		//trigger voted event
+		emit votedEvent(_candidateId);
 	}
 }
